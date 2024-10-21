@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "salt_and_silver:deepslate_impure_silver_ore",
+    "salt_and_silver:impure_silver_ore",
+    "salt_and_silver:impure_silver_block",
+    "salt_and_silver:raw_impure_silver_block",
+    "salt_and_silver:silver_block"
+  ]
+}

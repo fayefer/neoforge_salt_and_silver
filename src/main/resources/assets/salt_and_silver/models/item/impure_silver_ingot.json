@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "salt_and_silver:item/impure_silver_ingot"
+  }
+}

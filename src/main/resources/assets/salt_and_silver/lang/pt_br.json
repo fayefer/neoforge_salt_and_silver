@@ -1,0 +1,17 @@
+{
+  "item.salt_and_silver.raw_impure_silver": "Prata impura bruta",
+  "item.salt_and_silver.impure_silver_ingot": "Barra de prata impura",
+  "item.salt_and_silver.silver_ingot": "Barra de prata",
+  "item.salt_and_silver.silver_nugget": "Pepita de prata",
+
+  "item.salt_and_silver.ectoplasm": "Ectoplasma",
+
+  "block.salt_and_silver.silver_block": "Bloco de prata",
+  "block.salt_and_silver.impure_silver_block": "Bloco de prata impura",
+  "block.salt_and_silver.impure_silver_ore": "Minério de prata impura",
+  "block.salt_and_silver.deepslate_impure_silver_ore": "Minério de prata impura de ardósia",
+  "block.salt_and_silver.raw_impure_silver_block": "Bloco de prata impura bruta",
+  "block.salt_and_silver.salt_block": "Bloco de sal",
+
+  "creativetab.salt_and_silver.salt_and_silver": "Sal e Prata"
+}

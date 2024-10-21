@@ -1,0 +1,17 @@
+{
+  "item.salt_and_silver.raw_impure_silver": "Raw Impure Silver",
+  "item.salt_and_silver.impure_silver_ingot": "Impure Silver Ingot",
+  "item.salt_and_silver.silver_ingot": "Silver Ingot",
+  "item.salt_and_silver.silver_nugget": "Silver Nugget",
+
+  "item.salt_and_silver.ectoplasm": "Ectoplasm",
+
+  "block.salt_and_silver.silver_block": "Silver Block",
+  "block.salt_and_silver.impure_silver_block": "Impure Silver Block",
+  "block.salt_and_silver.impure_silver_ore": "Impure Silver Ore",
+  "block.salt_and_silver.deepslate_impure_silver_ore": "Deepslate Impure Silver Ore",
+  "block.salt_and_silver.raw_impure_silver_block": "Raw Impure Silver Block",
+  "block.salt_and_silver.salt_block": "Salt Block",
+
+  "creativetab.salt_and_silver.salt_and_silver": "Salt And Silver"
+}

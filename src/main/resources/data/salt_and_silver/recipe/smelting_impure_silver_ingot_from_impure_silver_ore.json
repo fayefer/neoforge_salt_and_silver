@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "impure_silver_ingot",
+  "ingredient": {
+    "item": "salt_and_silver:impure_silver_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "salt_and_silver:impure_silver_ingot"
+  }
+}
