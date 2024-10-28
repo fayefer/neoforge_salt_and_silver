@@ -2,6 +2,7 @@ package net.fayefer.salt_and_silver.item;
 
 import net.fayefer.salt_and_silver.SaltAndSilver;
 import net.fayefer.salt_and_silver.block.ModBlocks;
+import net.fayefer.salt_and_silver.fluid.ModFluids;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -25,6 +26,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.SILVER_NUGGET);
 
                         output.accept(ModItems.ECTOPLASM);
+
+                        output.accept(ModFluids.ECTOPLASM_FLUID.get());
 
                         output.accept(ModBlocks.RAW_IMPURE_SILVER_BLOCK);
                         output.accept(ModBlocks.IMPURE_SILVER_BLOCK);

@@ -1,8 +1,11 @@
 package net.fayefer.salt_and_silver.item;
 
 import net.fayefer.salt_and_silver.SaltAndSilver;
+import net.fayefer.salt_and_silver.fluid.ModFluids;
 import net.fayefer.salt_and_silver.item.custom.EctoplasmItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;

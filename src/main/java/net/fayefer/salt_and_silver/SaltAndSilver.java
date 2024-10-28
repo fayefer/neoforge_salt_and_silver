@@ -1,9 +1,21 @@
 package net.fayefer.salt_and_silver;
 
 import net.fayefer.salt_and_silver.block.ModBlocks;
+import net.fayefer.salt_and_silver.block.custom.EctoplasmCauldron;
+import net.fayefer.salt_and_silver.block.custom.MilkCauldron;
+import net.fayefer.salt_and_silver.fluid.FluidTypes;
+import net.fayefer.salt_and_silver.fluid.MilkPlacement;
+import net.fayefer.salt_and_silver.fluid.ModFluids;
+import net.fayefer.salt_and_silver.fluid.SaltAndSilverFluidType;
 import net.fayefer.salt_and_silver.item.ModCreativeModeTabs;
 import net.fayefer.salt_and_silver.item.ModItems;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -21,36 +33,35 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(SaltAndSilver.MOD_ID)
 public class SaltAndSilver {
-    // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "salt_and_silver";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-
-    // The constructor for the mod class is the first code that is run when your mod is loaded.
-    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public SaltAndSilver(IEventBus modEventBus, ModContainer modContainer) {
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-
-        // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
-        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        NeoForgeMod.enableMilkFluid();
+        NeoForge.EVENT_BUS.addListener(MilkPlacement::onRightClick);
+
         ModCreativeModeTabs.register(modEventBus);
+
+        FluidTypes.register(modEventBus);
+        ModFluids.FLUIDS.register(modEventBus);
+        ModFluids.VANILLA_BLOCKS.register(modEventBus);
+        ModFluids.BLOCKS.register(modEventBus);
+        ModFluids.ITEMS.register(modEventBus);
+
+        MilkCauldron.init();
+        EctoplasmCauldron.init();
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
-        // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
@@ -58,7 +69,6 @@ public class SaltAndSilver {
 
     }
 
-    // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.RAW_IMPURE_SILVER);
@@ -67,6 +77,8 @@ public class SaltAndSilver {
             event.accept(ModItems.SILVER_NUGGET);
 
             event.accept(ModItems.ECTOPLASM);
+
+            event.accept(ModFluids.ECTOPLASM_FLUID.get());
         }
         if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(ModBlocks.RAW_IMPURE_SILVER_BLOCK);
@@ -80,18 +92,28 @@ public class SaltAndSilver {
         }
     }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
+        public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+            for (DeferredHolder<FluidType, SaltAndSilverFluidType> fluid : SaltAndSilverFluidType.registeredFluids) {
+                event.registerFluidType(fluid.get().register(), fluid.get());
+            }
+        }
+        @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.MILK_FLUID_STILL.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.MILK_FLUID_FLOWING.get(), RenderType.translucent());
 
+            event.enqueueWork(() -> {
+                ItemBlockRenderTypes.setRenderLayer(ModFluids.ECTOPLASM_FLUID_FLOWING.get(), RenderType.TRANSLUCENT);
+                ItemBlockRenderTypes.setRenderLayer(ModFluids.ECTOPLASM_FLUID_STILL.get(), RenderType.TRANSLUCENT);
+            });
         }
     }
 }

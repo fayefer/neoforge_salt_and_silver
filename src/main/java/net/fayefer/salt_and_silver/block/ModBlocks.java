@@ -1,7 +1,10 @@
 package net.fayefer.salt_and_silver.block;
 
-import com.mojang.serialization.MapCodec;
 import net.fayefer.salt_and_silver.SaltAndSilver;
+import net.fayefer.salt_and_silver.block.custom.EctoplasmCauldron;
+import net.fayefer.salt_and_silver.block.custom.MilkCauldron;
+import net.fayefer.salt_and_silver.fluid.EctoplasmFluidBlock;
+import net.fayefer.salt_and_silver.fluid.ModFluids;
 import net.fayefer.salt_and_silver.item.ModItems;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -9,7 +12,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -42,9 +44,13 @@ public class ModBlocks {
                     .mapColor(MapColor.COLOR_LIGHT_GRAY).strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)));
 
     public static final DeferredBlock<Block> SALT_BLOCK = registerBlock("salt_block",
-            () -> new ColoredFallingBlock(new ColorRGBA(15592941), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.6F).sound(SoundType.GRAVEL)) {
+            () -> new ColoredFallingBlock(new ColorRGBA(15592941), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.6F).sound(SoundType.GRAVEL)) {});
 
-    });
+    public static final DeferredBlock<AbstractCauldronBlock> MILK_CAULDRON = registerBlock("milk_cauldron",
+            () -> new MilkCauldron(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON)));
+
+    public static final DeferredBlock<AbstractCauldronBlock> ECTOPLASM_CAULDRON = registerBlock("ectoplasm_cauldron",
+            () -> new EctoplasmCauldron(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON).lightLevel(state -> 14)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
